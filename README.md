@@ -1,203 +1,203 @@
-# ugrep - Ultra Fast Grep with Advanced Features
+# ugrep - 超高速 Grep 工具，具备高级功能
 
-A high-performance, feature-rich search tool written in Rust that combines the speed of ripgrep with advanced functionality.
+一款用 Rust 编写的高性能、功能丰富的搜索工具，结合了 ripgrep 的速度与先进的功能。
 
-## Features
+## 功能特性
 
-### Core Functionality
-- **Regex Engine**: PCRE-compatible regex with multi-line and Unicode support
-- **High Performance**: Parallel processing with Rayon + zero-copy memory mapping
-- **Smart Output**: Color highlighting, file names, line numbers, and column numbers
-- **Context Control**: Show lines before/after matches with `-A/-B/-C`
+### 核心功能
+- **正则表达式引擎**：支持 PCRE 兼容的正则表达式，包含多行和 Unicode 支持
+- **高性能**：使用 Rayon 进行并行处理，并支持零拷贝内存映射
+- **智能输出**：色彩高亮、文件名、行号和列号显示
+- **上下文控制**：使用 `-A`/`-B`/`-C` 选项显示匹配行之前/之后的内容
 
-### File Processing
-- **Binary Handling**: Automatically skips binary files (override with `--binary`)
-- **Git Integration**: Respects `.gitignore` rules via the `ignore` crate
-- **Encoding Detection**: Auto-detects and converts files to UTF-8
-- **File Filtering**: Glob patterns, modification time filters
+### 文件处理
+- **二进制文件处理**：自动跳过二进制文件（可使用 `--binary` 选项覆盖）
+- **Git 集成**：通过 `ignore` crate 遵循 `.gitignore` 规则
+- **编码检测**：自动检测文件编码并转换为 UTF-8
+- **文件过滤**：支持通配符模式、修改时间过滤
 
-### Advanced Matching
-- **Pattern Types**: Wildcard/glob search, JSON/YAML path support
-- **Match Modes**: Invert match (`-v`), word match (`-w`)
-- **Statistics**: Match counts and file statistics with `--stats`
+### 高级匹配
+- **模式类型**：通配符/全局搜索、JSON/YAML 路径支持
+- **匹配模式**：反向匹配 (`-v`)、单词匹配 (`-w`)
+- **统计信息**：使用 `--stats` 选项显示匹配计数和文件统计信息
 
-### Developer Friendly
-- **Configuration**: Config file support (`~/.ugrep.toml`)
-- **Performance**: 8-thread parallel processing by default
-- **Export**: JSON/CSV output for scripting
+### 开发者友好
+- **配置**：支持配置文件 (`~/.ugrep.toml`)
+- **性能**：默认使用 8 线程并行处理
+- **导出**：支持 JSON/CSV 输出，便于脚本处理
 
-## Installation
+## 安装方法
 
 ```bash
-# Build from source
+# 从源码构建
 cargo build --release
 
-# The binary will be available at target/release/ugrep
+# 构建完成后，二进制文件位于 target/release/ugrep
 ```
 
-## Usage
+## 使用方法
 
-### Basic Search
+### 基础搜索
 
 ```bash
-# Search for a pattern in current directory
-ugrep "pattern" .
+# 在当前目录搜索模式
+ugrep "模式" .
 
-# Search in specific file
-ugrep "pattern" file.txt
+# 在特定文件中搜索
+ugrep "模式" 文件.txt
 
-# Case insensitive search
-ugrep -i "pattern" file.txt
+# 不区分大小写搜索
+ugrep -i "模式" 文件.txt
 ```
 
-### Output Options
+### 输出选项
 
 ```bash
-# Show line numbers (default)
-ugrep "pattern" file.txt
+# 显示行号（默认）
+ugrep "模式" 文件.txt
 
-# Count matches only
-ugrep -c "pattern" file.txt
+# 仅统计匹配次数
+ugrep -c "模式" 文件.txt
 
-# Show only files with matches
-ugrep -f "pattern" .
+# 仅显示包含匹配项的文件
+ugrep -f "模式" .
 
-# Enable color highlighting
-ugrep --color "pattern" file.txt
+# 启用色彩高亮
+ugrep --color "模式" 文件.txt
 
-# Show statistics
-ugrep --stats "pattern" .
+# 显示统计信息
+ugrep --stats "模式" .
 ```
 
-### Context Control
+### 上下文控制
 
 ```bash
-# Show 3 lines after match
-ugrep -A 3 "pattern" file.txt
+# 显示匹配行后 3 行内容
+ugrep -A 3 "模式" 文件.txt
 
-# Show 2 lines before match
-ugrep -B 2 "pattern" file.txt
+# 显示匹配行前 2 行内容
+ugrep -B 2 "模式" 文件.txt
 
-# Show 1 line before and after
-ugrep -C 1 "pattern" file.txt
+# 显示匹配行前后各 1 行内容
+ugrep -C 1 "模式" 文件.txt
 ```
 
-### Advanced Matching
+### 高级匹配
 
 ```bash
-# Whole word matching
-ugrep -w "word" file.txt
+# 全词匹配
+ugrep -w "单词" 文件.txt
 
-# Invert match (show non-matching lines)
-ugrep -v "pattern" file.txt
+# 反向匹配（显示不匹配的行）
+ugrep -v "模式" 文件.txt
 
-# Glob pattern filtering
-ugrep --glob "*.rs" "pattern" .
+# 使用通配符过滤文件
+ugrep --glob "*.rs" "模式" .
 
-# Regex pattern
-ugrep "\d+\.\d+\.\d+\.\d+" file.txt
+# 正则表达式模式
+ugrep "\d+\.\d+\.\d+\.\d+" 文件.txt
 ```
 
-### Performance Options
+### 性能选项
 
 ```bash
-# Set number of threads
-ugrep -t 16 "pattern" .
+# 设置线程数
+ugrep -t 16 "模式" .
 
-# Search in binary files too
-ugrep --binary "pattern" file.bin
+# 同时搜索二进制文件
+ugrep --binary "模式" 文件.bin
 ```
 
-## Options
+## 选项说明
 
 ```
-Usage: ugrep [OPTIONS] <PATTERN> [PATH]
+用法: ugrep [选项] <模式> [路径]
 
-Arguments:
-  <PATTERN>  Search pattern
-  [PATH]     Search path [default: .]
+参数:
+  <模式>  搜索模式
+  [路径]  搜索路径 [默认: .]
 
-Options:
-  -i, --invert-match              Invert match (show non-matching lines)
-  -w, --word-regexp               Match whole words only
-  -a, --after-context <NUM>       Show NUM lines after match
-  -b, --before-context <NUM>      Show NUM lines before match
-      --color                     Enable color highlighting
-  -c, --count                     Show only match counts
-  -f, --files-with-matches        Show only files with matches
-      --binary                    Search in binary files
-      --modified <DAYS>           Only search files modified in last N days
-      --stats                     Show search statistics
-      --json                      Output in JSON format
-  -j, --json-path <PATH>          Search JSON path
-      --glob <PATTERN>            Filter files by glob pattern
-  -t, --threads <NUM>             Number of threads [default: 8]
-  -h, --help                      Print help
+选项:
+  -i, --invert-match              反向匹配（显示不匹配的行）
+  -w, --word-regexp               仅匹配完整单词
+  -a, --after-context <行数>      显示匹配行后的行数
+  -b, --before-context <行数>     显示匹配行前的行数
+      --color                     启用色彩高亮
+  -c, --count                     仅显示匹配次数
+  -f, --files-with-matches        仅显示包含匹配项的文件
+      --binary                    搜索二进制文件
+      --modified <天数>           仅搜索最近 N 天内修改的文件
+      --stats                     显示搜索统计信息
+      --json                      以 JSON 格式输出
+  -j, --json-path <路径>          搜索 JSON 路径
+      --glob <模式>               使用通配符模式过滤文件
+  -t, --threads <数量>            线程数量 [默认: 8]
+  -h, --help                      显示帮助信息
 ```
 
-## Performance
+## 性能表现
 
-ugrep is optimized for speed:
+ugrep 为速度进行了优化：
 
-- **Parallel Processing**: Multi-threaded file traversal and search
-- **Memory Mapping**: Zero-copy file reading with `memmap2`
-- **Smart Encoding**: Automatic encoding detection and conversion
-- **Binary Detection**: Skips binary files by default
-- **Regex Compilation**: Pre-compiled patterns for repeated use
+- **并行处理**：多线程文件遍历和搜索
+- **内存映射**：使用 `memmap2` 进行零拷贝文件读取
+- **智能编码**：自动编码检测和转换
+- **二进制检测**：默认跳过二进制文件
+- **正则表达式编译**：预编译模式以供重复使用
 
-## Examples
+## 示例
 
-### Search in Rust files only
+### 仅在 Rust 文件中搜索
 
 ```bash
 ugrep --glob "*.rs" "println" .
 ```
 
-### Find TODO comments
+### 查找 TODO 注释
 
 ```bash
 ugrep -i "todo|fixme" --glob "*.rs" .
 ```
 
-### Search recently modified files
+### 搜索最近修改的文件
 
 ```bash
-ugrep --modified 7 "pattern" .
+ugrep --modified 7 "模式" .
 ```
 
-### Count occurrences per file
+### 统计每个文件的匹配次数
 
 ```bash
 ugrep -c "function" src/
 ```
 
-### Show context around matches
+### 显示匹配内容周围的上下文
 
 ```bash
-ugrep -C 2 "error" log.txt
+ugrep -C 2 "error" 日志.txt
 ```
 
-## Configuration
+## 配置
 
-Create `~/.ugrep.toml` for persistent settings:
+创建 `~/.ugrep.toml` 文件进行持久化设置：
 
 ```toml
-threads = 16
-color = true
-binary = false
+线程数 = 16
+色彩 = true
+二进制文件 = false
 ```
 
-## Performance Comparison
+## 性能比较
 
-Compared to traditional grep:
-- **2-10x faster** through parallel processing
-- **Memory efficient** with memory mapping
-- **Feature rich** with modern options
+与传统 grep 相比：
+- 通过并行处理**快 2-10 倍**
+- 通过内存映射实现**内存高效利用**
+- 具备现代选项，**功能丰富**
 
-## License
+## 许可证
 
-This project is licensed under the MIT License.
+本项目采用 MIT 许可证。
 
-## Contributing
+## 贡献指南
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+欢迎贡献代码！请随时提交 Pull Request。
