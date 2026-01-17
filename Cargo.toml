@@ -4,13 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-regex = "1.10"            # 正则引擎
-ignore = "0.4"            # 文件遍历
-rayon = "1.8"             # 并行处理
-termcolor = "1.4"         # 彩色输出
-serde_json = "1.0"        # JSON处理
-memmap2 = "0.9"           # 内存映射
-clap = { version = "4.4", features = ["derive"] } # 命令行解析
+regex = "1.10"
+ignore = "0.4"
+rayon = "1.8"
+termcolor = "1.4"
+serde_json = "1.0"
+memmap2 = "0.9"
+clap = { version = "4.4", features = ["derive"] }
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.8"
 chardetng = "0.1"
