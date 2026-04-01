@@ -1,7 +1,10 @@
 # ugrep - 超高速 Grep 工具，具备高级功能
 
 一款用 Rust 编写的高性能、功能丰富的搜索工具，结合了 ripgrep 的速度与先进的功能。
+## 安装
+curl -sSf https://raw.githubusercontent.com/xwq3337/ugrep/master/install.sh | bash
 
+curl -sSf https://raw.githubusercontent.com/xwq3337/ugrep/master/uninstall.sh | bash
 ## 功能特性
 
 ### 核心功能
